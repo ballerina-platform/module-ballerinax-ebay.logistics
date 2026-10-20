@@ -1,0 +1,1 @@
+../shipping_label_purchase.md

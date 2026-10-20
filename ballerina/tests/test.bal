@@ -79,6 +79,10 @@ function testGetShippingQuote() returns error? {
 
 @test:Config {groups: ["live_tests", "mock_tests"]}
 function testCreateFromShippingQuote() returns error? {
+    // A live run would buy a real shipping label.
+    if isLiveServer {
+        return;
+    }
     Shipment shipment = check ebay->createFromShippingQuote(
         {xEBAYCMARKETPLACEID: marketplaceId, contentType: "application/json"},
         {shippingQuoteId: QUOTE_ID, rateId: "rate-usps-priority-001"});

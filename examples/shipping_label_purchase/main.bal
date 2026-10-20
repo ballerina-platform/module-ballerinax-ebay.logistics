@@ -1,4 +1,5 @@
-// Quote shipping rates for an order, buy the cheapest USPS rate and download the shipping label.
+// Quote shipping rates for an order, buy the cheapest rate for the buyer's selected shipping service and download
+// the shipping label.
 
 import ballerina/http;
 import ballerina/io;
@@ -7,6 +8,9 @@ import ballerinax/ebay.logistics;
 configurable string accessToken = ?;
 configurable string marketplaceId = "EBAY_US";
 configurable string orderId = ?;
+// The order does not carry the buyer's selected shipping service, so supply it here. Never fulfill the order with a
+// rate for any other service.
+configurable string shippingServiceCode = ?;
 configurable string shipFromName = ?;
 configurable string shipFromPhone = ?;
 configurable string shipFromStreet = ?;
@@ -66,15 +70,22 @@ public function main() returns error? {
         return error("No shipping rates were returned for quote " + quoteId);
     }
 
-    // Step 2: Pick the cheapest rate.
-    logistics:Rate cheapest = rates[0];
-    decimal cheapestCost = check decimal:fromString(rates[0].baseShippingCost?.value ?: "0");
+    // Step 2: Pick the cheapest priced rate for the shipping service the buyer selected.
+    logistics:Rate? cheapest = ();
+    decimal cheapestCost = 0;
     foreach logistics:Rate rate in rates {
         string? cost = rate.baseShippingCost?.value;
-        if cost is string && check decimal:fromString(cost) < cheapestCost {
-            cheapestCost = check decimal:fromString(cost);
+        if rate.shippingServiceCode != shippingServiceCode || cost is () {
+            continue;
+        }
+        decimal value = check decimal:fromString(cost);
+        if cheapest is () || value < cheapestCost {
+            cheapestCost = value;
             cheapest = rate;
         }
+    }
+    if cheapest is () {
+        return error("No priced rate for shipping service " + shippingServiceCode + " in quote " + quoteId);
     }
     string rateId = check cheapest.rateId.ensureType();
     io:println("Selected rate ", rateId, " (", cheapest.shippingServiceName, ") at ", cheapestCost);
@@ -86,6 +97,9 @@ public function main() returns error? {
 
     // Step 4: Download the shipping label.
     http:Response label = check ebay->downloadLabelFile(shipmentId, {accept: "application/pdf"});
+    if label.statusCode < 200 || label.statusCode > 299 {
+        return error(string `Label download failed with HTTP ${label.statusCode}: ${check label.getTextPayload()}`);
+    }
     byte[] pdf = check label.getBinaryPayload();
     check io:fileWriteBytes(labelOutputPath, pdf);
     io:println("Label saved to ", labelOutputPath);

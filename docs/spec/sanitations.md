@@ -1,4 +1,4 @@
-_Author_:  Dimuthu Madushan \
+_Author_:  @DimuthuMadushan \
 _Created_: 2026/10/20 \
 _Updated_: 2026/10/20 \
 _Edition_: Swan Lake
@@ -18,6 +18,8 @@ These changes are done in order to improve the overall usability, and as workaro
 4. Replaced the templated server URL `https://api.ebay.com{basePath}` (with a `basePath` variable defaulting to `/sell/logistics/v1_beta`) with the concrete URL `https://api.ebay.com/sell/logistics/v1_beta`, in `docs/spec/openapi.json`. This change is made in the original spec.
 
 5. Rewrote the generic `Success` descriptions of the `200` responses of `cancelShipment`, `downloadLabelFile`, `getShipment` and `getShippingQuote` to describe the returned content, in `docs/spec/openapi.json`. This change is made in the original spec.
+
+6. Replaced the HTML-formatted `info.description` with a short plain-text description of the API, in `docs/spec/openapi.json`. The generated client's documentation comment is taken from this field. This change is made in the original spec.
 
 ## OpenAPI cli command
 

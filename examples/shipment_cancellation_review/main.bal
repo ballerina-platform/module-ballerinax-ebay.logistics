@@ -20,8 +20,17 @@ public function main() returns error? {
         return error("Shipment " + shipmentId + " does not reference a shipping quote");
     }
     logistics:ShippingQuote quote = check ebay->getShippingQuote(quoteId);
-    io:println("Quote ", quoteId, " offered ", (quote.rates ?: []).length(), " rate(s); purchased total: ",
-            shipment.rate?.totalShippingCost?.value);
+    logistics:Rate[] rates = quote.rates ?: [];
+    string? purchasedRateId = shipment.rate?.rateId;
+    string? quotedCost = ();
+    foreach logistics:Rate rate in rates {
+        if purchasedRateId is string && rate.rateId == purchasedRateId {
+            quotedCost = rate.baseShippingCost?.value;
+            break;
+        }
+    }
+    io:println("Quote ", quoteId, " offered ", rates.length(), " rate(s); quoted cost of rate ", purchasedRateId,
+            ": ", quotedCost, ", purchased total: ", shipment.rate?.totalShippingCost?.value);
 
     // Step 3: Cancel only when explicitly requested.
     if !cancelShipment {

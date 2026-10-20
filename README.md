@@ -8,7 +8,7 @@
 
 [eBay](https://www.ebay.com/) is a global online marketplace where businesses and individuals buy and sell goods. The eBay Logistics API lets approved sellers get live shipping rates, buy shipping labels and manage the resulting shipments through eBay.
 
-The `ebay.logistics` connector provides a Ballerina client for version `v1_beta` of the eBay Logistics API, so you can request shipping quotes, purchase rates and handle shipments from your integrations. The API is a limited release available only to developers approved by eBay.
+The ebay logistics connector provides a Ballerina client for version `v1_beta` of the eBay Logistics API, so you can request shipping quotes, purchase rates and handle shipments from your integrations. The API is a limited release available only to developers approved by eBay.
 
 ## Setup guide
 
@@ -75,7 +75,7 @@ bal run
 
 The `eBay Logistics` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-ebay.logistics/tree/main/examples/), covering the following use cases:
 
-1. [Shipping label purchase](examples/shipping_label_purchase/shipping_label_purchase.md) - Request shipping rates for an order, buy the cheapest rate and download the shipping label.
+1. [Shipping label purchase](examples/shipping_label_purchase/shipping_label_purchase.md) - Request shipping rates for an order, buy the cheapest rate for the buyer's selected shipping service and download the shipping label.
 2. [Shipment cancellation review](examples/shipment_cancellation_review/shipment_cancellation_review.md) - Review a purchased shipment against its original quote and cancel it when requested.
 
 ## Build from the source

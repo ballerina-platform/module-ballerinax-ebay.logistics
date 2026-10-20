@@ -77,5 +77,5 @@ bal run
 
 The `eBay Logistics` connector provides practical examples illustrating usage in various scenarios. Explore these [examples](https://github.com/ballerina-platform/module-ballerinax-ebay.logistics/tree/main/examples/), covering the following use cases:
 
-1. [Shipping label purchase](../examples/shipping_label_purchase/shipping_label_purchase.md) - Request shipping rates for an order, buy the cheapest rate and download the shipping label.
-2. [Shipment cancellation review](../examples/shipment_cancellation_review/shipment_cancellation_review.md) - Review a purchased shipment against its original quote and cancel it when requested.
+1. [Shipping label purchase](https://github.com/ballerina-platform/module-ballerinax-ebay.logistics/tree/main/examples/shipping_label_purchase) - Request shipping rates for an order, buy the cheapest rate for the buyer's selected shipping service and download the shipping label.
+2. [Shipment cancellation review](https://github.com/ballerina-platform/module-ballerinax-ebay.logistics/tree/main/examples/shipment_cancellation_review) - Review a purchased shipment against its original quote and cancel it when requested.

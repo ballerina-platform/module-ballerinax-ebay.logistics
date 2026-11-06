@@ -2,13 +2,17 @@
 
 The `ballerinax/ebay.logistics` connector provides practical examples illustrating usage in various scenarios.
 
-[//]: # (TODO: Add examples)
-1. 
-2. 
+| Example | Description |
+|---------|-------------|
+| [`shipping_label_purchase`](./shipping_label_purchase/shipping_label_purchase.md) | Request shipping rates for an order, buy the cheapest rate for the buyer's selected shipping service and download the shipping label. |
+| [`shipment_cancellation_review`](./shipment_cancellation_review/shipment_cancellation_review.md) | Review a purchased shipment against its original quote and cancel it when requested. |
 
 ## Prerequisites
 
-[//]: # (TODO: Add prerequisites)
+1. Access to the eBay Logistics API, a limited release API available only to partners approved by eBay.
+2. An eBay user access token with the `https://api.ebay.com/oauth/api_scope/sell.logistics` scope.
+3. For the `shipping_label_purchase` example, a payment method set up in the seller's eBay account, which eBay requires before a shipment can be created.
+4. For each example, create a `Config.toml` in the example directory with the required values, as described in the example's documentation.
 
 ## Running an example
 
